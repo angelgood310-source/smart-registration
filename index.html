@@ -1,0 +1,450 @@
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Registration Form</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 15px;
+            background: linear-gradient(135deg, #141e30, #243b55);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: #243b55;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 9px;
+            outline: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #2575fc;
+            box-shadow: 0 0 5px rgba(37, 117, 252, 0.3);
+        }
+
+        input:invalid:not(:placeholder-shown) {
+            border-color: #e74c3c;
+        }
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 65px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+            color: #2575fc;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .strength-container {
+            margin-top: 8px;
+        }
+
+        .strength-bar {
+            height: 6px;
+            width: 100%;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: 0.3s;
+            background: #e74c3c;
+        }
+
+        #strengthText {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            margin: 18px 0;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .terms input {
+            width: auto;
+            margin-top: 2px;
+        }
+
+        .terms label {
+            font-weight: normal;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .terms a {
+            color: #2575fc;
+            text-decoration: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(37, 117, 252, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #message {
+            display: none;
+            padding: 12px;
+            margin-top: 18px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .success {
+            display: block !important;
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            display: block !important;
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Create Account</h1>
+        <p>Register today and get started!</p>
+    </div>
+
+    <form id="registrationForm">
+
+        <div class="input-group">
+            <label for="fullname">Full Name</label>
+            <input
+                type="text"
+                id="fullname"
+                placeholder="Enter your full name"
+                minlength="3"
+                maxlength="60"
+                autocomplete="name"
+                required>
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="example@gmail.com"
+                maxlength="254"
+                autocomplete="email"
+                required>
+        </div>
+
+        <div class="input-group">
+            <label for="phone">Phone Number</label>
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Enter 10-digit mobile number"
+                pattern="[6-9][0-9]{9}"
+                maxlength="10"
+                inputmode="numeric"
+                autocomplete="tel"
+                required>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+
+            <div class="password-box">
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create a strong password"
+                    minlength="8"
+                    maxlength="128"
+                    autocomplete="new-password"
+                    required>
+
+                <button type="button"
+                        class="toggle-password"
+                        onclick="togglePassword('password', this)">
+                    Show
+                </button>
+            </div>
+
+            <div class="strength-container">
+                <div class="strength-bar">
+                    <div class="strength-fill" id="strengthFill"></div>
+                </div>
+                <span id="strengthText">Password strength: Not entered</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="confirmPassword">Confirm Password</label>
+
+            <div class="password-box">
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    minlength="8"
+                    maxlength="128"
+                    autocomplete="new-password"
+                    required>
+
+                <button type="button"
+                        class="toggle-password"
+                        onclick="togglePassword('confirmPassword', this)">
+                    Show
+                </button>
+            </div>
+        </div>
+
+        <div class="terms">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">
+                I agree to the
+                <a href="#" onclick="return false;">Terms & Conditions</a>
+                and Privacy Policy.
+            </label>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+            Create Account
+        </button>
+
+        <div id="message" role="status" aria-live="polite"></div>
+
+    </form>
+
+    <div class="footer">
+        Already have an account? <a href="#">Login</a>
+    </div>
+
+</div>
+
+<script>
+    const form = document.getElementById("registrationForm");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+    const strengthFill = document.getElementById("strengthFill");
+    const strengthText = document.getElementById("strengthText");
+    const message = document.getElementById("message");
+
+    // Show and hide password
+    function togglePassword(id, button) {
+        const field = document.getElementById(id);
+
+        if (field.type === "password") {
+            field.type = "text";
+            button.textContent = "Hide";
+        } else {
+            field.type = "password";
+            button.textContent = "Show";
+        }
+    }
+
+    // Password strength checker
+    password.addEventListener("input", function () {
+
+        const value = password.value;
+        let score = 0;
+
+        if (value.length >= 8) score++;
+        if (/[A-Z]/.test(value)) score++;
+        if (/[a-z]/.test(value)) score++;
+        if (/[0-9]/.test(value)) score++;
+        if (/[^A-Za-z0-9]/.test(value)) score++;
+
+        const levels = [
+            { width: "0%", text: "Not entered", color: "#ddd" },
+            { width: "20%", text: "Very weak", color: "#e74c3c" },
+            { width: "40%", text: "Weak", color: "#e67e22" },
+            { width: "60%", text: "Medium", color: "#f1c40f" },
+            { width: "80%", text: "Strong", color: "#3498db" },
+            { width: "100%", text: "Very strong", color: "#27ae60" }
+        ];
+
+        const level = value.length === 0
+            ? levels[0]
+            : levels[score];
+
+        strengthFill.style.width = level.width;
+        strengthFill.style.background = level.color;
+        strengthText.textContent = "Password strength: " + level.text;
+    });
+
+    // Confirm password validation
+    confirmPassword.addEventListener("input", function () {
+        confirmPassword.setCustomValidity(
+            confirmPassword.value === password.value
+                ? ""
+                : "Passwords do not match."
+        );
+    });
+
+    password.addEventListener("input", function () {
+        if (confirmPassword.value !== "") {
+            confirmPassword.setCustomValidity(
+                confirmPassword.value === password.value
+                    ? ""
+                    : "Passwords do not match."
+            );
+        }
+    });
+
+    // Registration form submission
+    form.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        message.className = "";
+        message.textContent = "";
+
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        if (password.value !== confirmPassword.value) {
+            message.textContent = "Passwords do not match!";
+            message.className = "error";
+            return;
+        }
+
+        const name = document.getElementById("fullname").value.trim();
+        const email = document.getElementById("email").value.trim();
+
+        if (name.length < 3) {
+            message.textContent = "Please enter a valid full name.";
+            message.className = "error";
+            return;
+        }
+
+        // Demo success: no account is stored or created.
+        message.textContent =
+            "Registration form validated successfully! Welcome, " +
+            name + "!";
+
+        message.className = "success";
+
+        // Clear sensitive password fields
+        password.value = "";
+        confirmPassword.value = "";
+        strengthFill.style.width = "0%";
+        strengthText.textContent = "Password strength: Not entered";
+    });
+</script>
+
+</body>
+</html>
